@@ -13,12 +13,41 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->uuid('uuid')->unique();
+            $table->string('phone')->unique();
+            $table->boolean('status')->default(true);
             $table->timestamps();
+        });
+
+        Schema::create('user_details', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('password');
+            $table->timestamps();
+        });
+
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id');
+            $table->decimal('balance', 10, 2)->default(0);
+            $table->timestamps();
+        });
+
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id');
+            $table->string('type');
+            $table->decimal('amount', 10, 2);
+            $table->decimal('balance_before', 10, 2);
+            $table->decimal('balance_after', 10, 2);
+            $table->boolean('status');
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -43,6 +72,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_details');
+        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('transactions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
