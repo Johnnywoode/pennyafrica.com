@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('phone')->unique();
+            $table->boolean('is_admin')->default(false);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

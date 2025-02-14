@@ -21,8 +21,12 @@
         <nav class="mt-2">
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                @php
+                    $menuData = App\Helpers\Helper::menuData(true);
+                    $sidebarMenu = Auth::user()->isAdmin() ? $menuData->admin : $menuData->user;
+                @endphp
 
-                @foreach(json_decode(json_encode(App\Helpers\Helper::menuData())) as $menu)
+                @foreach($sidebarMenu as $menu)
                 @if(isset($menu->navheader))
                 <li class="navigation-header">
                     <span>{{ $menu->navheader }}</span>
@@ -48,7 +52,7 @@
 
                 <li
                     class="nav-item {{ $menuOpenClass }} {{ $custom_classes }}">
-                    <a href="{{ $menu->url }}" class="nav-link" target="{{ isset($menu->target)? $menu->target : '' }}">
+                    <a href="{{ $menu->url }}" class="nav-link {{ isset($menu->slug) && str_contains(request()->path(),$menu->slug) ? 'active' : '' }}" target="{{ isset($menu->target)? $menu->target : '' }}">
                         <i class="nav-icon {{ $menu->icon }}"></i>
                         <p data-i18n="{{ $translation }}">{{ $menu->name }} @if (isset($menu->submenu)) <i
                                 class="nav-arrow bi bi-chevron-right"></i> @endif</p>

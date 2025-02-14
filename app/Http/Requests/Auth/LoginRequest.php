@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Rules\ValidatePassword;
+use App\Rules\ValidateLogin;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -22,10 +22,10 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'country_code' => 'required',
-            'phone' => 'required|exists:users',
-            'password' => ['required', new ValidatePassword($this->input('phone'))]
+            'phone' => ['required', new ValidateLogin($this->input())],
+            'password' => ['required'],
         ];
     }
 }

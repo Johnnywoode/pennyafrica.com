@@ -177,7 +177,7 @@ return [
             'rule-name' => 'custom-message',
         ],
         'phone' => [
-            'validate_password' => 'The :attribute is incorrect',
+            'invalid_login_credentials' => 'Invalid login credentials',
         ],
     ],
 

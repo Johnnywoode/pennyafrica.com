@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use stdClass;
+
 class Helper
 {
     /**
@@ -9,104 +11,119 @@ class Helper
      *
      * @return array[]
      */
-    public static function menuData(): array
+    public static function menuData(bool $jsonFormat = false): stdClass
     {
-        return [
-            [
-                'url'    => route('admin.dashboard'),
-                'slug'   => 'dashboard',
-                'name'   => 'Dashboard',
-                'i18n'   => 'Dashboard',
-                'access' => 'dashboard_access',
-                'icon'   => 'bi bi-speedometer',
-            ],
-            [
-                'url'    => route('admin.conferences.index'),
-                'slug'   => 'admin/conferences',
-                'name'   => 'Conferences',
-                'i18n'   => 'Conferences',
-                'access' => 'conferences_access',
-                'icon'   => 'fa fa-people-line',
-            ],
-            [
-                'url'     => '',
-                'slug'   => 'admin/attendees',
-                'name'    => 'Attendees',
-                'i18n'    => 'Attendees',
-                'icon'    => 'bi bi-box-seam-fill',
-                'access'  => 'attendees_manage',
-                'submenu' => [
-                    [
-                        'url'    => route('admin.attendees.index'),
-                        'slug'   => 'admin/attendees/list',
-                        'name'   => 'Registration',
-                        'i18n'   => 'Registration',
-                        'access' => 'attendees_registration',
-                        'icon'   => 'bi bi-save',
-                    ],
-                    [
-                        'url'    => route('admin.checkins.index'),
-                        'slug'   => 'admin/check-ins',
-                        'name'   => 'Check-ins',
-                        'i18n'   => 'Check-ins',
-                        'access' => 'attendees_check_in',
-                        'icon'   => 'bi bi-check-circle',
-                    ],
+        $menuData = [
+            'admin' => [
+                [
+                    'url'    => route(config('app.admin_path'). '.dashboard'),
+                    'slug'   => 'dashboard',
+                    'name'   => 'Dashboard',
+                    'i18n'   => 'Dashboard',
+                    'access' => 'dashboard_access',
+                    'icon'   => 'bi bi-speedometer',
                 ],
+                // [
+                //     'url'    => route('admin.conferences.index'),
+                //     'slug'   => 'admin/conferences',
+                //     'name'   => 'Conferences',
+                //     'i18n'   => 'Conferences',
+                //     'access' => 'conferences_access',
+                //     'icon'   => 'fa fa-people-line',
+                // ],
+                // [
+                //     'url'     => '',
+                //     'slug'   => 'admin/attendees',
+                //     'name'    => 'Attendees',
+                //     'i18n'    => 'Attendees',
+                //     'icon'    => 'bi bi-box-seam-fill',
+                //     'access'  => 'attendees_manage',
+                //     'submenu' => [
+                //         [
+                //             'url'    => route('admin.attendees.index'),
+                //             'slug'   => 'admin/attendees/list',
+                //             'name'   => 'Registration',
+                //             'i18n'   => 'Registration',
+                //             'access' => 'attendees_registration',
+                //             'icon'   => 'bi bi-save',
+                //         ],
+                //         [
+                //             'url'    => route('admin.checkins.index'),
+                //             'slug'   => 'admin/check-ins',
+                //             'name'   => 'Check-ins',
+                //             'i18n'   => 'Check-ins',
+                //             'access' => 'attendees_check_in',
+                //             'icon'   => 'bi bi-check-circle',
+                //         ],
+                //     ],
+                // ],
+                // [
+                //     'url'     => '',
+                //     'slug'   => 'admin.reports',
+                //     'name'    => 'Reports',
+                //     'i18n'    => 'Reports',
+                //     'icon'    => 'bi bi-bar-chart',
+                //     'access'  => 'view_reports',
+                //     'submenu' => [
+                //         [
+                //             'url'    => url('admin/reports/attendance'),
+                //             'slug'   => 'admin.reports.attendance',
+                //             'name'   => 'Attendance Report',
+                //             'i18n'   => 'Attendance Report',
+                //             'access' => 'view_attendance_report',
+                //             'icon'   => 'bi bi-file-earmark-bar-graph',
+                //         ],
+                //         [
+                //             'url'    => url('admin/reports/sessions'),
+                //             'slug'   => 'admin.reports.sessions',
+                //             'name'   => 'Session Report',
+                //             'i18n'   => 'Session Report',
+                //             'access' => 'view_session_report',
+                //             'icon'   => 'bi bi-file-earmark-spreadsheet',
+                //         ],
+                //     ],
+                // ],
+                // [
+                //     'url'     => '',
+                //     'slug'   => 'admin.settings',
+                //     'name'    => 'Settings',
+                //     'i18n'    => 'Settings',
+                //     'icon'    => 'bi bi-gear-fill',
+                //     'access'  => 'manage_settings',
+                //     'submenu' => [
+                //         [
+                //             'url'    => url('admin/settings/general'),
+                //             'slug'   => 'admin.settings.general',
+                //             'name'   => 'General Settings',
+                //             'i18n'   => 'General Settings',
+                //             'access' => 'manage_general_settings',
+                //             'icon'   => 'bi bi-sliders',
+                //         ],
+                //         [
+                //             'url'    => url('admin/settings/security'),
+                //             'slug'   => 'admin.settings.security',
+                //             'name'   => 'Security Settings',
+                //             'i18n'   => 'Security Settings',
+                //             'access' => 'manage_security_settings',
+                //             'icon'   => 'bi bi-shield-lock',
+                //         ],
+                //     ],
+                // ],
             ],
-            [
-                'url'     => '',
-                'slug'   => 'admin.reports',
-                'name'    => 'Reports',
-                'i18n'    => 'Reports',
-                'icon'    => 'bi bi-bar-chart',
-                'access'  => 'view_reports',
-                'submenu' => [
-                    [
-                        'url'    => url('admin/reports/attendance'),
-                        'slug'   => 'admin.reports.attendance',
-                        'name'   => 'Attendance Report',
-                        'i18n'   => 'Attendance Report',
-                        'access' => 'view_attendance_report',
-                        'icon'   => 'bi bi-file-earmark-bar-graph',
-                    ],
-                    [
-                        'url'    => url('admin/reports/sessions'),
-                        'slug'   => 'admin.reports.sessions',
-                        'name'   => 'Session Report',
-                        'i18n'   => 'Session Report',
-                        'access' => 'view_session_report',
-                        'icon'   => 'bi bi-file-earmark-spreadsheet',
-                    ],
+
+            'user' => [
+                [
+                    'url'    => route('user.dashboard'),
+                    'slug'   => 'dashboard',
+                    'name'   => 'Dashboard',
+                    'i18n'   => 'Dashboard',
+                    'access' => 'dashboard_access',
+                    'icon'   => 'bi bi-speedometer',
                 ],
-            ],
-            [
-                'url'     => '',
-                'slug'   => 'admin.settings',
-                'name'    => 'Settings',
-                'i18n'    => 'Settings',
-                'icon'    => 'bi bi-gear-fill',
-                'access'  => 'manage_settings',
-                'submenu' => [
-                    [
-                        'url'    => url('admin/settings/general'),
-                        'slug'   => 'admin.settings.general',
-                        'name'   => 'General Settings',
-                        'i18n'   => 'General Settings',
-                        'access' => 'manage_general_settings',
-                        'icon'   => 'bi bi-sliders',
-                    ],
-                    [
-                        'url'    => url('admin/settings/security'),
-                        'slug'   => 'admin.settings.security',
-                        'name'   => 'Security Settings',
-                        'i18n'   => 'Security Settings',
-                        'access' => 'manage_security_settings',
-                        'icon'   => 'bi bi-shield-lock',
-                    ],
-                ],
-            ],
+            ]
         ];
+
+        return $jsonFormat ? json_decode(json_encode($menuData)) : $menuData;
     }
 
     /**

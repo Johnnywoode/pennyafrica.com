@@ -4,8 +4,22 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('user.dashboard');
 });
+
+Route::prefix('')->name('user.')->middleware(['auth'])->group(function () {
+    Route::get('/', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
+
+});
+
+Route::prefix(config('app.admin_path'))->name(config('app.admin_path').'.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+
+
+
 
 // Auth Routes
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
