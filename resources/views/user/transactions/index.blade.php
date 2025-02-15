@@ -32,14 +32,14 @@
                 <th></th>
                 <th></th>
                 <th>ID</th>
-                <th>User</th>
+                {{-- <th>User</th> --}}
                 <th>Type</th>
                 <th>Amount</th>
                 <th>Balance Before</th>
                 <th>Balance After</th>
                 <th>Status</th>
                 <th>Date</th>
-                <th>Actions</th>
+                {{-- <th>Actions</th> --}}
             </tr>
         </thead>
     </table>
@@ -75,7 +75,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route(config('app.admin_path') . '.transactions.search') }}",
+                    url: "{{ route('user.transactions.search') }}",
                     type: "POST",
                     data: function (d) {
                         d._token = "{{ csrf_token() }}"; // Include CSRF token for Laravel
@@ -90,29 +90,29 @@
                     {"data": "uuid", "render": function (data, type, row) {
                         return `<a href="${row.show}" class="btn btn-link btn-sm">${data}</a>`;
                     }},
-                    {"data": "user"},
+                    // {"data": "user"},
                     {"data": "type", className: 'text-center'},
                     {"data": "amount"},
                     {"data": "balance_before"},
                     {"data": "balance_after"},
                     {"data": "status"},
                     {"data": "created_at"},
-                    {"data": "action", orderable: false, searchable: false, className: 'text-center', "render": function (data, type, row) {
-                        return `
-                            <div class="btn-group" role="group">
-                                <a href="${row.show}" class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye px-2"></i> </a>
+                    // {"data": "action", orderable: false, searchable: false, className: 'text-center', "render": function (data, type, row) {
+                    //     return `
+                    //         <div class="btn-group" role="group">
+                    //             <a href="${row.show}" class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye px-2"></i> </a>
 
-                                <button class="btn btn-sm btn-warning edit-btn" data-uuid="${row.uuid}">
-                                    <i class="bi bi-pencil px-2"></i>
-                                </button>
+                    //             <button class="btn btn-sm btn-warning edit-btn" data-uuid="${row.uuid}">
+                    //                 <i class="bi bi-pencil px-2"></i>
+                    //             </button>
 
-                                <button class="btn btn-sm btn-success check-in" data-id="${row.uuid}" title="Check-In"><i class="bi bi-check px-2"></i> </button>
-                            </div>
-                        `;
-                    }}
+                    //             <button class="btn btn-sm btn-success check-in" data-id="${row.uuid}" title="Check-In"><i class="bi bi-check px-2"></i> </button>
+                    //         </div>
+                    //     `;
+                    // }}
                 ],
                 searchDelay: 1500,
-                order: [[9, 'desc']], // Default sorting by 'date' column
+                order: [[8, 'desc']], // Default sorting by 'date' column
                 responsive: true, // Enables responsive design
                 lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]], // Entries dropdown
                 language: {
@@ -121,7 +121,7 @@
                         next: '<i class="fas fa-angle-right"></i>',
                     },
                     search: '<i class="fas fa-search"></i>',
-                    searchPlaceholder: 'Search attendees...',
+                    searchPlaceholder: 'Search...',
                 },
                 dom: '<"row mb-3"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4 justify-content-center"B><"col-sm-12 col-md-4 text-end"f>>' +
                     '<"table-responsive"tr>' +

@@ -21,11 +21,22 @@ class UserSeeder extends Seeder
             'is_admin' => true,
             'status' => true,
         ])->details()->create([
-            'name' => 'User',
+            'name' => 'Super Admin',
+            'email' => 'admin@pennyafrica.com',
+            'password' => Hash::make('aaaaaaaa'),
+        ])->user->account()->create([
+            'balance' => 1000.79,
+        ]);
+
+        $user = User::create([
+            'phone' => '233244111111',
+            'status' => true,
+        ])->details()->create([
+            'name' => 'John Doe',
             'email' => 'user@pennyafrica.com',
             'password' => Hash::make('aaaaaaaa'),
         ])->user->account()->create([
-            'balance' => 100.79,
+            'balance' => 100.99,
         ]);
     }
 }

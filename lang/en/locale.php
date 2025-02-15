@@ -25,7 +25,9 @@ return [
 
     'titles' => [
         'dashboard'                                  => 'Dashboard',
+        'sandbox'                                    => 'Sandbox',
         'transactions'                               => 'Transactions',
+        'my_transactions'                            => 'My Transactions',
         'users'                                      => 'Users',
     ]
 ];

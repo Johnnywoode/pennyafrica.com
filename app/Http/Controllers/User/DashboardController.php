@@ -17,12 +17,13 @@ class DashboardController extends Controller
             ['name' => $page_title],
         ];
 
+        $user = Auth::user();
         $stats = [
             'total_users' => User::count(),
             'active_users' => User::where('status', true)->count(),
-            'total_transactions' => Transaction::count(),
-            'credit_transactions' => Auth::user()->transactions()->where('type', Transaction::TYPE_CREDIT)->count(),
-            'debit_transactions' => Auth::user()->transactions()->where('type', Transaction::TYPE_DEBIT)->count(),
+            'total_transactions' => $user->transactions()->count(),
+            'credit_transactions' => $user->transactions()->where('type', Transaction::TYPE_CREDIT)->count(),
+            'debit_transactions' => $user->transactions()->where('type', Transaction::TYPE_DEBIT)->count(),
         ];
 
         return view('user.dashboard', compact('page_title', 'stats', 'breadcrumbs'));

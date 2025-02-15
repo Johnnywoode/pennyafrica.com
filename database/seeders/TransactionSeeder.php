@@ -14,16 +14,17 @@ class TransactionSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();
+        $users = User::all();
 
-        if (!$user) {
+        if ($users->isEmpty()) {
             $this->call(UserSeeder::class);
-            $user = User::first();
+            $users = User::all();
         }
 
-        $account = $user->account;
+        foreach ($users as $user) {
+            $account = $user->account;
 
-        // Deduct the decimal part
-        $account->deductDecimalPart(Transaction::TYPE_CREDIT);
+            $account->deductDecimalPart(Transaction::TYPE_CREDIT);
+        }
     }
 }

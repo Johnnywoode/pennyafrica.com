@@ -16,7 +16,7 @@ class Helper
         $menuData = [
             'admin' => [
                 [
-                    'url'    => route(config('app.admin_path'). '.dashboard'),
+                    'url'    => route(config('app.admin_path') . '.dashboard'),
                     'slug'   => 'dashboard',
                     'name'   => 'Dashboard',
                     'i18n'   => 'Dashboard',
@@ -30,6 +30,15 @@ class Helper
                     'i18n'   => 'Users',
                     'access' => 'users_access',
                     'icon'   => 'fa fa-people-line',
+                ],
+                [
+                    'url'    => route('sandbox.dashboard'),
+                    'slug'   => 'sandbox',
+                    'name'   => 'Sandbox',
+                    'i18n'   => 'Sandbox',
+                    'access' => 'sandbox_access',
+                    'icon'   => 'bi bi-box',
+                    'classlist'   => 'my-4 bg-white text-danger border border-danger fw-bold',
                 ],
                 // [
                 //     'url'     => '',
@@ -119,6 +128,23 @@ class Helper
                     'i18n'   => 'Dashboard',
                     'access' => 'dashboard_access',
                     'icon'   => 'bi bi-speedometer',
+                ],
+                [
+                    'url'    => route('user.transactions'),
+                    'slug'   => 'transactions',
+                    'name'   => 'Transactions',
+                    'i18n'   => 'transactions',
+                    'access' => 'transactions_access',
+                    'icon'   => 'bi bi-currency-exchange',
+                ],
+                [
+                    'url'    => route('sandbox.dashboard'),
+                    'slug'   => 'sandbox',
+                    'name'   => 'Sandbox',
+                    'i18n'   => 'Sandbox',
+                    'access' => 'sandbox_access',
+                    'icon'   => 'bi bi-box',
+                    'classlist'   => 'my-4 text-danger border border-danger fw-bold',
                 ],
             ]
         ];
@@ -385,7 +411,4 @@ class Helper
 
         return array_values($countries);
     }
-
-
 }
-
