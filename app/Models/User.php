@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\HasUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -35,6 +36,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', true);
+    }
+
+    public function scopeInactive(Builder $query): Builder
+    {
+        return $query->where('status', false);
+    }
+
     public function details(): HasOne
     {
         return $this->hasOne(UserDetail::class);
@@ -48,6 +59,11 @@ class User extends Authenticatable
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
     }
 
     public function isAdmin(): bool

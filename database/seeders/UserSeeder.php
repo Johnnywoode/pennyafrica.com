@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
     {
         $user = User::create([
             'phone' => '233244000000',
+            'is_admin' => true,
             'status' => true,
         ])->details()->create([
             'name' => 'User',

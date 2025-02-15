@@ -14,6 +14,13 @@ Route::prefix('')->name('user.')->middleware(['auth'])->group(function () {
 
 Route::prefix(config('app.admin_path'))->name(config('app.admin_path').'.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users');
+    Route::post('users/search', [App\Http\Controllers\Admin\UserController::class, 'search'])->name('users.search');
+
+    Route::get('transactions', [App\Http\Controllers\Admin\TransactionController::class, 'index'])->name('transactions');
+    Route::post('transactions/search', [App\Http\Controllers\Admin\TransactionController::class, 'search'])->name('transactions.search');
+
 });
 
 

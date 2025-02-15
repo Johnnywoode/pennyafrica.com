@@ -23,14 +23,14 @@ class Helper
                     'access' => 'dashboard_access',
                     'icon'   => 'bi bi-speedometer',
                 ],
-                // [
-                //     'url'    => route('admin.conferences.index'),
-                //     'slug'   => 'admin/conferences',
-                //     'name'   => 'Conferences',
-                //     'i18n'   => 'Conferences',
-                //     'access' => 'conferences_access',
-                //     'icon'   => 'fa fa-people-line',
-                // ],
+                [
+                    'url'    => route(config('app.admin_path') . '.users'),
+                    'slug'   => config('app.admin_path') . '/users',
+                    'name'   => 'Users',
+                    'i18n'   => 'Users',
+                    'access' => 'users_access',
+                    'icon'   => 'fa fa-people-line',
+                ],
                 // [
                 //     'url'     => '',
                 //     'slug'   => 'admin/attendees',

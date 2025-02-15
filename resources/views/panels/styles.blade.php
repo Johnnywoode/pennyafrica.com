@@ -22,6 +22,9 @@
 
 <link rel="stylesheet" href="{{ asset('app/plugins/select2/css/select2.min.css') }}">
 <style>
+    a {
+        text-decoration: none;
+    }
     .input-group .select2-container--default .select2-selection--single {
         height: 100%;
         border-radius: 0.375rem;

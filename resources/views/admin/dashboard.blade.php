@@ -20,7 +20,7 @@
                 <div class="small-box text-bg-warning">
                     <div class="inner">
                         <h3><sup class="fs-5">{{ $stats['active_users'] }}</sup> / {{ $stats['total_users'] }}</h3>
-                        <p>Users</p>
+                        <p class="fs-4 fw-bold mb-0">{{ __('locale.labels.users') }}</p>
                     </div>
                     <i class="bi bi-people small-box-icon"></i>
                 </div>
@@ -32,8 +32,9 @@
                 <a href="{{ route(config('app.admin_path') . '.transactions') }}">
                     <div class="small-box text-bg-success">
                         <div class="inner">
-                            <h3><sup class="fs-5">{{ $stats['credit_transactions'] }}</sup> /sup class="fs-5">{{ $stats['debit_transactions'] }}</sup> /{{ $stats['total_transactions'] }}</h3>
-                            <p> {{ __('locale.labels.my_transactions') }} </p>
+                            <h3><sup class="fs-5 badge bg-white text-success" title="{{ __('locale.labels.credit_transactions') }}">{{ $stats['credit_transactions'] }}</sup> /
+                                <sup class="fs-5 badge bg-white text-danger" title="{{ __('locale.labels.debit_transactions') }}">{{ $stats['debit_transactions'] }}</sup> / {{ $stats['total_transactions'] }}</h3>
+                            <p class="fs-4 fw-bold mb-0"> {{ __('locale.labels.transactions') }} </p>
                         </div>
                         <i class="bi bi-currency-exchange small-box-icon"></i>
                     </div>
