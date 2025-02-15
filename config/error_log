@@ -1,0 +1,4 @@
+[15-Feb-2025 10:07:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/pennyafr/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/pennyafr/public_html/config/database.php on line 19
