@@ -2,242 +2,143 @@
 @section('title', __('locale.titles.sandbox'))
 
 @section('page_styles')
-<!-- DataTables CSS -->
-<link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<!-- DataTables Buttons CSS -->
-<link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- DataTables Buttons CSS -->
+    <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
 
-<style>
-    .sandbox-area {
-    /* background: #222;*/
-    height: auto;
-    /* border: 5px solid; */
-    /* border-image: linear-gradient(90deg, red, blue, green, yellow, purple) 1; */
-    border-radius: 1rem;
-    animation: animate-border 3s linear infinite;
-    position: relative;
-    }
-
-    /* Glowing Blurred Effect */
-    .sandbox-area::before {
-    content: "";
-    position: absolute;
-    inset: -1rem; /* Extends slightly outside to keep smooth edges */
-    border-radius: inherit; /* Ensures border follows same rounded shape */
-    padding: 1rem; /* Simulates a border thickness */
-    background: linear-gradient(90deg, red, blue, green, yellow, purple);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    filter: blur(10px); /* Adds glow effect */
-    z-index: -1;
-    animation: animate-border 3s linear infinite;
-    }
-
-    @keyframes animate-border {
-        0% {
-        border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
-        filter: hue-rotate(0deg);
+    <style>
+        .sandbox-area {
+            /* background: #222;*/
+            height: auto;
+            /* border: 5px solid; */
+            /* border-image: linear-gradient(90deg, red, blue, green, yellow, purple) 1; */
+            border-radius: 1rem;
+            animation: animate-border 3s linear infinite;
+            position: relative;
         }
-        100% {
-        border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
-        filter: hue-rotate(360deg);
+
+        /* Glowing Blurred Effect */
+        .sandbox-area::before {
+            content: "";
+            position: absolute;
+            inset: -1rem;
+            /* Extends slightly outside to keep smooth edges */
+            border-radius: inherit;
+            /* Ensures border follows same rounded shape */
+            padding: 1rem;
+            /* Simulates a border thickness */
+            background: linear-gradient(90deg, red, blue, green, yellow, purple);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            filter: blur(10px);
+            /* Adds glow effect */
+            z-index: -1;
+            animation: animate-border 3s linear infinite;
         }
-    }
-</style>
+
+        @keyframes animate-border {
+            0% {
+                border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
+                filter: hue-rotate(360deg);
+            }
+        }
+    </style>
 
 @endsection
 
 @section('content')
-<div class="container text-center">
-    <div class="row g-4">
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
+    <div class="container text-center">
+        <div class="row g-4">
+            <div class="col">
+                <div class="card p-3">
+                    <button id="transact-btn" class="btn btn-default btn-lg">Make Transaction</button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card p-3">Custom column padding</div>
+            </div>
+            <div class="col">
+                <div class="card p-3">Custom column padding</div>
+            </div>
+            <div class="col">
+                <div class="card p-3">Custom column padding</div>
+            </div>
         </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-    </div>
-</div>
-
-<section class="row justify-content-center mt-4 bg-dark vh-100" style="">
-    <div class="col-11 col-md-8 col-lg-6 m-4 card sandbox-area">
     </div>
 
-    <div class="row">
-        <button class="btn btn-primary">Send</button>
-    </div>
-</section>
+    <section class="row justify-content-center mt-4 bg-dark vh-100" style="">
+        <div id="sandbox-area" class="col-11 col-md-8 col-lg-6 m-4 card sandbox-area">
+            jsdhfsdfdss
+        </div>
+
+        <div class="row">
+            <button class="btn btn-primary">Send</button>
+        </div>
+    </section>
 
 @endsection
 
 
 @section('page_script')
 
-<!-- jQuery (required for DataTables) -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
-<!-- DataTables Buttons JS -->
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <!-- DataTables Buttons JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-            const table = $('#transactions-datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('user.transactions.search') }}",
-                    type: "POST",
-                    data: function (d) {
-                        d._token = "{{ csrf_token() }}"; // Include CSRF token for Laravel
-                    },
-                },
-                columns: [
-                    {"data": 'responsive_id', orderable: false, searchable: false,
-                    render: function () {
-                    return '<input type="checkbox" class="row-checkbox">';
-                    },},
-                    {"data": "uuid", visible: false},
-                    {"data": "uuid", "render": function (data, type, row) {
-                        return `<a href="${row.show}" class="btn btn-link btn-sm">${data}</a>`;
-                    }},
-                    // {"data": "user"},
-                    {"data": "type", className: 'text-center'},
-                    {"data": "amount"},
-                    {"data": "balance_before"},
-                    {"data": "balance_after"},
-                    {"data": "status"},
-                    {"data": "created_at"},
-                    // {"data": "action", orderable: false, searchable: false, className: 'text-center', "render": function (data, type, row) {
-                    //     return `
-                    //         <div class="btn-group" role="group">
-                    //             <a href="${row.show}" class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye px-2"></i> </a>
 
-                    //             <button class="btn btn-sm btn-warning edit-btn" data-uuid="${row.uuid}">
-                    //                 <i class="bi bi-pencil px-2"></i>
-                    //             </button>
+    {{-- // Pusher  --}}
+    <script src="https://js.pusher.com/8.2/pusher.min.js"></script>
 
-                    //             <button class="btn btn-sm btn-success check-in" data-id="${row.uuid}" title="Check-In"><i class="bi bi-check px-2"></i> </button>
-                    //         </div>
-                    //     `;
-                    // }}
-                ],
-                searchDelay: 1500,
-                order: [[8, 'desc']], // Default sorting by 'date' column
-                responsive: true, // Enables responsive design
-                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]], // Entries dropdown
-                language: {
-                    paginate: {
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                    },
-                    search: '<i class="fas fa-search"></i>',
-                    searchPlaceholder: 'Search...',
-                },
-                dom: '<"row mb-3"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4 justify-content-center"B><"col-sm-12 col-md-4 text-end"f>>' +
-                    '<"table-responsive"tr>' +
-                    '<"row mt-3"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                buttons: [
-                    {
-                        extend: 'copy',
-                        className: 'btn btn-light btn-outline-primary btn-sm',
-                        text: '<i class="bi bi-clipboard"></i> Copy',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn btn-light btn-outline-secondary btn-sm',
-                        text: '<i class="bi bi-file-earmark"></i> CSV',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn btn-light btn-outline-danger btn-sm',
-                        text: '<i class="bi bi-file-earmark-pdf"></i> PDF',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-light btn-outline-success btn-sm',
-                        text: '<i class="bi bi-file-earmark-excel"></i> Excel',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-light btn-outline-info btn-sm',
-                        text: '<i class="bi bi-printer"></i> Print',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                ],
-                initComplete: function () {
-                    const searchBox = $('.dataTables_filter input[type="search"]');
-                    searchBox.addClass('form-control form-control-sm').attr('placeholder', "{{ __('locale.labels.search') }}");
-                },
-            });
+    <script type="module">
+        $(document).ready(function() {
+            alert('jjjgbhh')
 
-            // Add buttons to DataTable DOM
-            table.buttons().container().appendTo('#attendees-datatable_wrapper .col-md-6:eq(1)');
+            window.Echo.channel('sandbox')
+                .listen('.sent', (data) => {
+                    console.log('Order status updated: ', data);
+                    $("#sandbox-area").append("<p>" + data.message + "</p>");
+                });
+            // Enable debugging in console (optional)
+            // Pusher.logToConsole = true;
 
-            $("body").on('click', 'button.edit-btn', function (e) {
-                showToast('info', "{{ __('locale.labels.feature_disabled', ['feature' => 'Edit']) }}");
-                // const rowData = table.row($(this).closest('tr')).data(),
-                //     formActionUrl = "{{ url('admin/attendees') }}" + '/' + rowData.uuid;
 
-                // $('#edit-attendee-form').attr('action', formActionUrl);
-                // $('#title-uuid').text(rowData.uuid);
-                // $('#attendee-uuid').val(rowData.uuid);
-                // $('#attendee-title').val(rowData.title);
-                // $('#attendee-gender').val(rowData.gender);
-                // $('#attendee-first-name').val(rowData.first_name);
-                // $('#attendee-last-name').val(rowData.last_name);
-                // $('#attendee-email').val(rowData.email);
-                // $('#attendee-phone').val(rowData.phone);
 
-                // $('#editAttendeeModal').modal('show');
 
-            });
-
-            // $("body").on('click', 'button.check-in', function (e) {
-            //     const attendeeId = $(this).data('id');
-            //     $.ajax({
-            //         url: "{{url('admin/attendees/checkin')}}" + "/" + attendeeId,
-            //         type: 'POST',
-            //         data: {
-            //             _token: "{{ csrf_token() }}",
-            //         },
-            //         success: function (response) {
-            //             alert('Attendee checked in successfully!');
-            //             // Optionally, refresh the table
-            //             $('#attendees-datatable').DataTable().ajax.reload();
-            //         },
-            //         error: function (xhr) {
-            //             alert('Failed to check in attendee.');
-            //         }
-            //     });
+            // Initialize Pusher
+            // var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+            //     cluster: "{{ env('PUSHER_APP_CLUSTER') }}",
+            //     forceTLS: true
             // });
 
-            // $('#download-sample-btn, #extension-form-close-btn').on('click', function () {
-            //     $('#extension-form, #extension-form-close-btn').slideToggle(500);
+            // var channel = pusher.subscribe("messages");
+
+            // channel.bind("message.sent", function(data) {
+            //     $("#sandbox-area").append("<p>" + data.message + "</p>");
             // });
 
+            $('#transact-btn').on('click', function() {
 
+            });
         });
+    </script>
 
-</script>
 @endsection
