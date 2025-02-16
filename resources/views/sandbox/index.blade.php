@@ -7,30 +7,74 @@
 <!-- DataTables Buttons CSS -->
 <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
 
+<style>
+    .sandbox-area {
+    /* background: #222;*/
+    height: auto;
+    /* border: 5px solid; */
+    /* border-image: linear-gradient(90deg, red, blue, green, yellow, purple) 1; */
+    border-radius: 1rem;
+    animation: animate-border 3s linear infinite;
+    position: relative;
+    }
+
+    /* Glowing Blurred Effect */
+    .sandbox-area::before {
+    content: "";
+    position: absolute;
+    inset: -1rem; /* Extends slightly outside to keep smooth edges */
+    border-radius: inherit; /* Ensures border follows same rounded shape */
+    padding: 1rem; /* Simulates a border thickness */
+    background: linear-gradient(90deg, red, blue, green, yellow, purple);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: blur(10px); /* Adds glow effect */
+    z-index: -1;
+    animation: animate-border 3s linear infinite;
+    }
+
+    @keyframes animate-border {
+        0% {
+        border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
+        filter: hue-rotate(0deg);
+        }
+        100% {
+        border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
+        filter: hue-rotate(360deg);
+        }
+    }
+</style>
+
 @endsection
 
 @section('content')
-{{-- <div class="col-12 mb-2">
-    <div class="col">
-        <div class="d-flex gap-2">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                data-bs-target="#addAttendeeModal">
-                <i class="bi bi-plus-circle"></i> New
-            </button>
-            <button type="button" class="btn btn-indigo btn-sm" data-bs-toggle="modal"
-                data-bs-target="#importAttendeeModal">
-                <i class="bi bi-file-earmark-arrow-up"></i> Import
-            </button>
+<div class="container text-center">
+    <div class="row g-4">
+        <div class="col">
+            <div class="card p-3">Custom column padding</div>
+        </div>
+        <div class="col">
+            <div class="card p-3">Custom column padding</div>
+        </div>
+        <div class="col">
+            <div class="card p-3">Custom column padding</div>
+        </div>
+        <div class="col">
+            <div class="card p-3">Custom column padding</div>
         </div>
     </div>
-</div> --}}
-<div class="card p-2">
-
 </div>
 
-{{-- @include('admin.attendees._create_modal')
-@include('admin.attendees._import_modal')
-@include('admin.attendees._edit_modal') --}}
+<section class="row justify-content-center mt-4 bg-dark vh-100" style="">
+    <div class="col-11 col-md-8 col-lg-6 m-4 card sandbox-area">
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary">Send</button>
+    </div>
+</section>
 
 @endsection
 
