@@ -12,14 +12,14 @@ class Account extends Model
 {
     use HasFactory, HasUuid;
 
-    protected $fillable = ['balance'];
+    protected $fillable = ['balance', 'pennies'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function deductDecimalPart(string  $type) : void
+    public function deductDecimalPart(string  $type): void
     {
         $balance = $this->balance;
         $decimalPart = $this->balance - floor($balance);
@@ -36,7 +36,8 @@ class Account extends Model
                 'balance_after' => $newBalance,
                 'status' => true,
             ]);
+
+            $this->pennies = $this->pennies + $decimalPart;
         }
     }
-
 }

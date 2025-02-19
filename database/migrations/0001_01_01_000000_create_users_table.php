@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('phone')->unique();
+            $table->string('network');
             $table->boolean('is_admin')->default(false);
             $table->boolean('status')->default(true);
             $table->timestamps();
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->foreignId('user_id');
             $table->decimal('balance', 10, 2)->default(0);
+            $table->decimal('pennies', 10, 2)->default(0);
             $table->timestamps();
         });
 

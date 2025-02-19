@@ -1,11 +1,16 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Http\Controllers\Auth\AuthController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('user.dashboard');
 });
+
+Broadcast::routes();
 
 Route::prefix('')->name('user.')->middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
@@ -27,8 +32,6 @@ Route::prefix(config('app.admin_path'))->name(config('app.admin_path') . '.')->m
 Route::prefix('sandbox')->name('sandbox.')->middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\SandboxController::class, 'index'])->name('dashboard');
 });
-
-
 
 
 

@@ -2,242 +2,398 @@
 @section('title', __('locale.titles.sandbox'))
 
 @section('page_styles')
-<!-- DataTables CSS -->
-<link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-<!-- DataTables Buttons CSS -->
-<link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <!-- DataTables Buttons CSS -->
+  <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
 
-<style>
+  <style>
     .sandbox-area {
-    /* background: #222;*/
-    height: auto;
-    /* border: 5px solid; */
-    /* border-image: linear-gradient(90deg, red, blue, green, yellow, purple) 1; */
-    border-radius: 1rem;
-    animation: animate-border 3s linear infinite;
-    position: relative;
+      /* background: #222;*/
+      min-height: 20vh;
+      max-height: 50vh;
+      overflow-y: scroll;
+      border-radius: 1rem;
+      animation: animate-border 3s linear infinite;
+      position: relative;
     }
 
     /* Glowing Blurred Effect */
-    .sandbox-area::before {
-    content: "";
-    position: absolute;
-    inset: -1rem; /* Extends slightly outside to keep smooth edges */
-    border-radius: inherit; /* Ensures border follows same rounded shape */
-    padding: 1rem; /* Simulates a border thickness */
-    background: linear-gradient(90deg, red, blue, green, yellow, purple);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    filter: blur(10px); /* Adds glow effect */
-    z-index: -1;
-    animation: animate-border 3s linear infinite;
+    /* .sandbox-area::before {
+                                                                                                                                                                                      content: "";
+                                                                                                                                                                                      position: absolute;
+                                                                                                                                                                                      inset: -1rem;
+                                                                                                                                                                                      border-radius: inherit;
+                                                                                                                                                                                      padding: 1rem;
+                                                                                                                                                                                      background: linear-gradient(90deg, red, blue, green, yellow, purple);
+                                                                                                                                                                                      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                                                                                                                                                                      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                                                                                                                                                                      -webkit-mask-composite: xor;
+                                                                                                                                                                                      mask-composite: exclude;
+                                                                                                                                                                                      filter: blur(10px);
+                                                                                                                                                                                      z-index: -1;
+                                                                                                                                                                                      animation: animate-border 3s linear infinite;
+                                                                                                                                                                                    } */
+
+    /* @keyframes animate-border {
+                                                                                                                                                                                      0% {
+                                                                                                                                                                                        border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
+                                                                                                                                                                                        filter: hue-rotate(0deg);
+                                                                                                                                                                                      }
+
+                                                                                                                                                                                      100% {
+                                                                                                                                                                                        border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
+                                                                                                                                                                                        filter: hue-rotate(360deg);
+                                                                                                                                                                                      }
+                                                                                                                                                                                    } */
+
+    .chat-bubble {
+      max-width: 75%;
+      padding: .5rem .7rem;
+      border-radius: 1rem;
+      margin-bottom: .5rem;
+      font-size: 14px;
+      word-wrap: break-word;
     }
 
-    @keyframes animate-border {
-        0% {
-        border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
-        filter: hue-rotate(0deg);
-        }
-        100% {
-        border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
-        filter: hue-rotate(360deg);
-        }
+    /* System Message */
+    .system {
+      background-color: #e9ecef;
+      color: #333;
+      text-align: left;
+      border-top-left-radius: 0;
+      align-self: flex-start;
     }
-</style>
+
+    /* Error Message */
+    .neutral {
+      background-color: #dfdfdf;
+      color: #111;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #aaa;
+    }
+
+    /* User Message */
+    .user {
+      background-color: #007bff;
+      color: white;
+      text-align: right;
+      border-top-right-radius: 0;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    /* Error Message */
+    .error {
+      background-color: #b30000;
+      color: white;
+      text-align: left;
+      border-top-left-radius: 0;
+      align-self: flex-start;
+    }
+  </style>
 
 @endsection
 
 @section('content')
-<div class="container text-center">
+  {{-- <div class="container text-center mt-4">
     <div class="row g-4">
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
-        <div class="col">
-            <div class="card p-3">Custom column padding</div>
-        </div>
+      <div class="col">
+        <button class="btn btn-outline-primary btn-lg" data-bs-toggle="tab" data-bs-target="#transaction-tab">
+          Make Transaction
+        </button>
+      </div>
+      <div class="col">
+        <button class="btn btn-outline-primary btn-lg" data-bs-toggle="tab" data-bs-target="#topup-tab">
+          Make TopUp
+        </button>
+      </div>
     </div>
-</div>
+  </div>
 
-<section class="row justify-content-center mt-4 bg-dark vh-100" style="">
-    <div class="col-11 col-md-8 col-lg-6 m-4 card sandbox-area">
-    </div>
+  <section class="row justify-content-center mt-4 bg-dark p-4">
+    <div class="col-11 col-md-8 col-lg-6 p-3 card">
+      <div class="tab-content">
+        <!-- Transaction Tab Content -->
+        <div class="tab-pane fade show active" id="transaction-tab">
+          <div class="p-3">
+            <h5 class="text-primary">Transaction Details</h5>
+            <p>Enter transaction details here...</p>
+          </div>
+          <div class="row justify-content-center">
+            <button class="col-12 col-sm-4 col-md-3 col-lg-2 btn btn-primary">Send</button>
+          </div>
+        </div>
 
-    <div class="row">
-        <button class="btn btn-primary">Send</button>
+        <!-- TopUp Tab Content -->
+        <div class="tab-pane fade" id="topup-tab">
+          <div class="p-3">
+            <h5 class="text-primary">TopUp Details</h5>
+            <p>Enter top-up details here...</p>
+          </div>
+          <div class="row justify-content-center">
+            <button class="col-12 col-sm-4 col-md-3 col-lg-2 btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section> --}}
+
+  <div class="container text-center">
+    <div class="row g-4 nav text-center">
+      <div class="col mt-1">
+        <button class="active btn btn-outline-primary border border-primary" id="register-tab" data-bs-toggle="tab"
+          data-bs-target="#register-content" type="button" role="tab" aria-controls="register-content"
+          aria-selected="true">
+          Register User
+        </button>
+      </div>
+      <div class="col mt-1">
+        <button class="btn btn-outline-success border border-success" id="transaction-tab" data-bs-toggle="tab"
+          data-bs-target="#transaction-content" type="button" role="tab" aria-controls="transaction-content"
+          aria-selected="false">
+          Transact
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section class="row justify-content-center mt-4 bg-dark p-2 p-md-4">
+    <div class="col-12 col-md-10 col-lg-6 p-2 card">
+      <div class="tab-content">
+
+        <!-- TopUp Tab Content -->
+        <div class="tab-pane fade show active" id="register-content" role="tabpanel" aria-labelledby="register-tab">
+          <div class="p-3 pb-1 sandbox-register-area">
+            <p class="chat-bubble neutral">Click on <span class="badge badge-sm bg-primary ">Start Registration</span>
+              below.</p>
+          </div>
+          <div id="start-register-div" class="input-group mt-3">
+            <button class="btn btn-primary mx-auto" id="start-register">Start Registration</button>
+          </div>
+          <div id="send-register-div" class="input-group mt-3 d-none">
+            <input type="text" id="register-input" class="form-control" placeholder="Enter your response">
+            <button class="btn btn-primary" id="send-register">Send</button>
+          </div>
+        </div>
+
+
+        <!-- Transaction Tab Content -->
+        <div class="tab-pane fade" id="transaction-content" role="tabpanel" aria-labelledby="transaction-tab">
+          <div class="p-3 pb-1 sandbox-transact-area">
+            <p class="chat-bubble neutral">Click on <span class="badge badge-sm bg-success ">Begin</span> below.</p>
+          </div>
+          <div id="start-transaction-div" class="input-group mt-3">
+            <button class="btn btn-success mx-auto" id="start-transaction">Run</button>
+          </div>
+          <div id="send-transaction-div" class="input-group mt-3 d-none">
+            <input type="text" id="transaction-input" class="form-control" placeholder="Enter your response">
+            <button class="btn btn-primary" id="send-transaction">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 @endsection
 
 
 @section('page_script')
 
-<!-- jQuery (required for DataTables) -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+  <!-- jQuery (required for DataTables) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
-<!-- DataTables Buttons JS -->
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-            const table = $('#transactions-datatable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('user.transactions.search') }}",
-                    type: "POST",
-                    data: function (d) {
-                        d._token = "{{ csrf_token() }}"; // Include CSRF token for Laravel
-                    },
-                },
-                columns: [
-                    {"data": 'responsive_id', orderable: false, searchable: false,
-                    render: function () {
-                    return '<input type="checkbox" class="row-checkbox">';
-                    },},
-                    {"data": "uuid", visible: false},
-                    {"data": "uuid", "render": function (data, type, row) {
-                        return `<a href="${row.show}" class="btn btn-link btn-sm">${data}</a>`;
-                    }},
-                    // {"data": "user"},
-                    {"data": "type", className: 'text-center'},
-                    {"data": "amount"},
-                    {"data": "balance_before"},
-                    {"data": "balance_after"},
-                    {"data": "status"},
-                    {"data": "created_at"},
-                    // {"data": "action", orderable: false, searchable: false, className: 'text-center', "render": function (data, type, row) {
-                    //     return `
-                    //         <div class="btn-group" role="group">
-                    //             <a href="${row.show}" class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye px-2"></i> </a>
-
-                    //             <button class="btn btn-sm btn-warning edit-btn" data-uuid="${row.uuid}">
-                    //                 <i class="bi bi-pencil px-2"></i>
-                    //             </button>
-
-                    //             <button class="btn btn-sm btn-success check-in" data-id="${row.uuid}" title="Check-In"><i class="bi bi-check px-2"></i> </button>
-                    //         </div>
-                    //     `;
-                    // }}
-                ],
-                searchDelay: 1500,
-                order: [[8, 'desc']], // Default sorting by 'date' column
-                responsive: true, // Enables responsive design
-                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]], // Entries dropdown
-                language: {
-                    paginate: {
-                        previous: '<i class="fas fa-angle-left"></i>',
-                        next: '<i class="fas fa-angle-right"></i>',
-                    },
-                    search: '<i class="fas fa-search"></i>',
-                    searchPlaceholder: 'Search...',
-                },
-                dom: '<"row mb-3"<"col-sm-12 col-md-4"l><"col-sm-12 col-md-4 justify-content-center"B><"col-sm-12 col-md-4 text-end"f>>' +
-                    '<"table-responsive"tr>' +
-                    '<"row mt-3"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-                buttons: [
-                    {
-                        extend: 'copy',
-                        className: 'btn btn-light btn-outline-primary btn-sm',
-                        text: '<i class="bi bi-clipboard"></i> Copy',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn btn-light btn-outline-secondary btn-sm',
-                        text: '<i class="bi bi-file-earmark"></i> CSV',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'pdf',
-                        className: 'btn btn-light btn-outline-danger btn-sm',
-                        text: '<i class="bi bi-file-earmark-pdf"></i> PDF',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-light btn-outline-success btn-sm',
-                        text: '<i class="bi bi-file-earmark-excel"></i> Excel',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-light btn-outline-info btn-sm',
-                        text: '<i class="bi bi-printer"></i> Print',
-                        exportOptions: { columns: ':visible:not(:last-child)' },
-                    },
-                ],
-                initComplete: function () {
-                    const searchBox = $('.dataTables_filter input[type="search"]');
-                    searchBox.addClass('form-control form-control-sm').attr('placeholder', "{{ __('locale.labels.search') }}");
-                },
-            });
-
-            // Add buttons to DataTable DOM
-            table.buttons().container().appendTo('#attendees-datatable_wrapper .col-md-6:eq(1)');
-
-            $("body").on('click', 'button.edit-btn', function (e) {
-                showToast('info', "{{ __('locale.labels.feature_disabled', ['feature' => 'Edit']) }}");
-                // const rowData = table.row($(this).closest('tr')).data(),
-                //     formActionUrl = "{{ url('admin/attendees') }}" + '/' + rowData.uuid;
-
-                // $('#edit-attendee-form').attr('action', formActionUrl);
-                // $('#title-uuid').text(rowData.uuid);
-                // $('#attendee-uuid').val(rowData.uuid);
-                // $('#attendee-title').val(rowData.title);
-                // $('#attendee-gender').val(rowData.gender);
-                // $('#attendee-first-name').val(rowData.first_name);
-                // $('#attendee-last-name').val(rowData.last_name);
-                // $('#attendee-email').val(rowData.email);
-                // $('#attendee-phone').val(rowData.phone);
-
-                // $('#editAttendeeModal').modal('show');
-
-            });
-
-            // $("body").on('click', 'button.check-in', function (e) {
-            //     const attendeeId = $(this).data('id');
-            //     $.ajax({
-            //         url: "{{url('admin/attendees/checkin')}}" + "/" + attendeeId,
-            //         type: 'POST',
-            //         data: {
-            //             _token: "{{ csrf_token() }}",
-            //         },
-            //         success: function (response) {
-            //             alert('Attendee checked in successfully!');
-            //             // Optionally, refresh the table
-            //             $('#attendees-datatable').DataTable().ajax.reload();
-            //         },
-            //         error: function (xhr) {
-            //             alert('Failed to check in attendee.');
-            //         }
-            //     });
-            // });
-
-            // $('#download-sample-btn, #extension-form-close-btn').on('click', function () {
-            //     $('#extension-form, #extension-form-close-btn').slideToggle(500);
-            // });
+  <!-- DataTables Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
 
+  {{-- // Pusher  --}}
+  {{-- <script src="https://js.pusher.com/8.2/pusher.min.js"></script> --}}
+  <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.2/dist/echo.iife.js"></script>
+
+  <script type="module">
+    $(document).ready(function() {
+      // Initialize Pusher
+      // Pusher.logToConsole = true;
+
+      // window.Echo = new Echo({
+      //   broadcaster: 'pusher',
+      //   key: '{{ env('PUSHER_APP_KEY') }}',
+      //   cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+      //   forceTLS: '{{ env('PUSHER_SCHEME', 'https') === 'https' }}'
+      // });
+
+      // Listen for events
+      // window.Echo.channel('ussd-channel')
+      //   .listen('.UssdResponseReceived', (data) => {
+      //     console.log('Received:', data);
+      //     $(".sandbox-area").append("<p> *** " + data.message.message + " *** </p>");
+      //   });
+
+      let sessionID = Date.now().toString();
+
+      // Start Registeration (First Request without User Input)
+      $('#start-register').on('click', function() {
+        $(this).prepend('<i class="fa fa-spinner fa-spin"></i> ').prop('disabled', 'disabled')
+        let requestData = {
+          sessionID: sessionID,
+          userID: '{{ Auth::user()->id }}',
+          newSession: true, // New session
+          msisdn: '{{ Auth::user()->phone }}',
+          userData: '*928*1#', // First request without user input
+          network: '{{ Auth::user()->network }}'
+        };
+
+        $(".sandbox-register-area").find(".user, .system, .error").each(function() {
+          $(this).fadeOut(300, function() {
+            $(this).remove();
+          });
         });
+        sendUSSDRegistration(requestData);
+      });
 
-</script>
+      $('#send-register').on('click', function() {
+        let userInput = $('#register-input').val().trim();
+        if (userInput === '') return;
+
+        $(this).prepend('<i class="fa fa-spinner fa-spin"></i> ').prop('disabled', 'disabled')
+
+        let requestData = {
+          sessionID: sessionID,
+          userID: '{{ Auth::user()->id }}',
+          msisdn: '{{ Auth::user()->phone }}',
+          userData: userInput,
+          network: '{{ Auth::user()->network }}'
+        };
+        // Append user message
+        $(".sandbox-register-area").append("<p class='chat-bubble user'>" + userInput + "</p>");
+        $('#user-input').val(''); // Clear input field
+        sendUSSDRegistration(requestData);
+        $(this).prop('disabled', false).find('.fa-spinner').remove();
+      });
+
+      // ======================================================
+      // Begin Transaction (First Request without User Input)
+      $('#start-transaction').on('click', function() {
+        $(this).prepend('<i class="fa fa-spinner fa-spin"></i> ').prop('disabled', 'disabled')
+        let requestData = {
+          sessionID: sessionID,
+          userID: '{{ Auth::user()->id }}',
+          newSession: true, // New session
+          msisdn: '{{ Auth::user()->phone }}',
+          userData: '1', // First request without user input
+          network: '{{ Auth::user()->network }}'
+        };
+
+        if (requestData.newSession == true) {
+          $(".sandbox-transact-area").find(".user, .system, .error").fadeOut(300, function() {
+            $(this).remove();
+          });
+        }
+
+        sendUSSDTransaction(requestData);
+
+      });
+
+      // Subsequent Transactions (Require User Input)
+      $('#send-transaction').on('click', function() {
+        let userInput = $('#transaction-input').val().trim();
+        let requestData = {
+          sessionID: sessionID,
+          userID: '{{ Auth::user()->id }}',
+          msisdn: '{{ Auth::user()->phone }}',
+          userData: userInput,
+          network: '{{ Auth::user()->network }}'
+        };
+
+        if (userInput === '') return;
+
+        // Append user message
+        $(".sandbox-transaction-area").append("<p class='chat-bubble user'>" + userInput + "</p>");
+        $('#user-input').val(''); // Clear input field
+
+        sendUSSDTransaction(requestData);
+        $(this).prop('disabled', false).find('.fa-spinner').remove();
+      });
+
+      // Function to Send AJAX Request
+      function sendUSSDTransaction(requestData) {
+        $.ajax({
+          url: "{{ route('api.handle-ussd-transaction') }}",
+          type: "POST",
+          data: requestData,
+          dataType: "json",
+          success: function(response) {
+            console.log("Responsezzzz:", response);
+            setTimeout(() => {
+              $(".sandbox-transact-area").append("<p class='chat-bubble system'>" + response.message +
+                "</p>");
+              // $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
+            }, 500); // Simulate delay
+            if (response.continueSession == true) {
+              $('#start-transaction-div').hide(300)
+              $('#send-transaction-div').removeClass('d-none').show(300)
+            } else {
+              $('#start-transaction').html('Rerun Simulation').removeAttr('disabled').show(300)
+              $('#send-transaction-div').addClass('d-none').hide(300)
+              $('#start-transaction-div').show(300)
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error("Error:", error);
+            setTimeout(() => {
+              $(".sandbox-transaction-area").append(
+                "<div class='chat-bubble system-message error'>Failed to process request</div>");
+              // $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
+            }, 500);
+          }
+        });
+      }
+
+      function sendUSSDRegistration(requestData) {
+        $.ajax({
+          url: "{{ route('api.handle-ussd-registration') }}",
+          type: "POST",
+          data: requestData,
+          dataType: "json",
+          success: function(response) {
+            console.log("Registration Response:", response);
+            setTimeout(() => {
+              $(".sandbox-register-area").append("<p class='chat-bubble system'>" + response.message +
+                "</p>");
+            }, 500);
+            if (response.continueSession == true) {
+              $('#start-register-div').hide(300)
+              $('#send-register-div').removeClass('d-none').show(300)
+            } else {
+              $('#start-register').html('Rerun Simulation').removeAttr('disabled').show(300)
+              $('#send-register-div').addClass('d-none').hide(300)
+              $('#start-register-div').show(300)
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error("Error:", error);
+            setTimeout(() => {
+              $(".sandbox-register-area").append(
+                "<div class='chat-bubble system-message error'>Failed to process request</div>");
+              // $(".chat-container").scrollTop($(".chat-container")[0].scrollHeight);
+            }, 500);
+          }
+        });
+      }
+    });
+  </script>
+
 @endsection
