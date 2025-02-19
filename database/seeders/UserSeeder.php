@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Account;
 use App\Models\User;
-use App\Models\UserDetail;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,9 +13,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
+        User::create([
             'phone' => '233244000000',
             'is_admin' => true,
+            'network' => User::NETWORK_MTN,
             'status' => true,
         ])->details()->create([
             'name' => 'Super Admin',
@@ -28,8 +26,9 @@ class UserSeeder extends Seeder
             'balance' => 1000.79,
         ]);
 
-        $user = User::create([
-            'phone' => '233244111111',
+        User::create([
+            'phone' => '233200000000',
+            'network' => User::NETWORK_TELECEL,
             'status' => true,
         ])->details()->create([
             'name' => 'John Doe',

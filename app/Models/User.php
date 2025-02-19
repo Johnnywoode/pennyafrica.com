@@ -17,12 +17,16 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasUuid;
 
+    public const NETWORK_MTN = 'MTN';
+    public const NETWORK_TELECEL = 'TELECEL';
+    public const NETWORK_AIRTELTIGO = 'AIRTELTIGO';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'status', 'network'];
 
     /**
      * Get the attributes that should be cast.

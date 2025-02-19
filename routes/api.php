@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::name('api.')->group(function () {
-    Route::post('/handle-ussd', [UssdController::class, 'handleUssd'])->name('handle-ussd');
+    Route::post('/transact', [UssdController::class, 'handleUssd'])->name('handle-ussd-transaction');
+    Route::post('/register', [UssdController::class, 'register'])->name('handle-ussd-registration');
 });
