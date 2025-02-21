@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
             'status' => true,
         ])->details()->create([
             'name' => 'Super Admin',
+            'dob' => '1989-05-18',
+            'gender' => 'male',
             'email' => 'admin@pennyafrica.com',
             'password' => Hash::make('aaaaaaaa'),
         ])->user->account()->create([
@@ -32,6 +34,8 @@ class UserSeeder extends Seeder
             'status' => true,
         ])->details()->create([
             'name' => 'John Doe',
+            'dob' => '1994-07-20',
+            'gender' => 'male',
             'email' => 'user@pennyafrica.com',
             'password' => Hash::make('aaaaaaaa'),
         ])->user->account()->create([

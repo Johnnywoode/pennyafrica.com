@@ -26,8 +26,10 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->foreignId('user_id');
             $table->string('name');
-            $table->string('email');
-            $table->string('password');
+            $table->string('email')->nullable();
+            $table->date('dob');
+            $table->string('gender');
+            $table->string('password')->nullable();
             $table->timestamps();
         });
 

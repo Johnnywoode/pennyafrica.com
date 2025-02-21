@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Artisan;
 use stdClass;
 
 class Helper
@@ -410,5 +411,29 @@ class Helper
         }
 
         return array_values($countries);
+    }
+
+
+
+    /**
+     * Store key-value pairs in .env file
+     */
+    public static function storeInEnv($key, $value)
+    {
+        $envPath = base_path('.env');
+        if (file_exists($envPath)) {
+            $envContents = file_get_contents($envPath);
+            $pattern = "/^{$key}=.*/m";
+            $replacement = "{$key}={$value}";
+
+            if (preg_match($pattern, $envContents)) {
+                $envContents = preg_replace($pattern, $replacement, $envContents);
+            } else {
+                $envContents .= "\n{$replacement}";
+            }
+
+            file_put_contents($envPath, $envContents);
+            Artisan::call('config:clear');
+        }
     }
 }
