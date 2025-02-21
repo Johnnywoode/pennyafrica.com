@@ -26,7 +26,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'status', 'network'];
+    protected $fillable = ['phone', 'status', 'network'];
 
     /**
      * Get the attributes that should be cast.
@@ -63,6 +63,11 @@ class User extends Authenticatable
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function withdrawals(): HasMany
+    {
+        return $this->hasMany(Withdrawal::class);
     }
 
     public function notifications(): HasMany

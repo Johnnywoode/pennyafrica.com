@@ -18,35 +18,6 @@
       position: relative;
     }
 
-    /* Glowing Blurred Effect */
-    /* .sandbox-area::before {
-                                                                                                                                                                                      content: "";
-                                                                                                                                                                                      position: absolute;
-                                                                                                                                                                                      inset: -1rem;
-                                                                                                                                                                                      border-radius: inherit;
-                                                                                                                                                                                      padding: 1rem;
-                                                                                                                                                                                      background: linear-gradient(90deg, red, blue, green, yellow, purple);
-                                                                                                                                                                                      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                                                                                                                                                                      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-                                                                                                                                                                                      -webkit-mask-composite: xor;
-                                                                                                                                                                                      mask-composite: exclude;
-                                                                                                                                                                                      filter: blur(10px);
-                                                                                                                                                                                      z-index: -1;
-                                                                                                                                                                                      animation: animate-border 3s linear infinite;
-                                                                                                                                                                                    } */
-
-    /* @keyframes animate-border {
-                                                                                                                                                                                      0% {
-                                                                                                                                                                                        border-image-source: linear-gradient(0deg, red, blue, green, yellow, purple);
-                                                                                                                                                                                        filter: hue-rotate(0deg);
-                                                                                                                                                                                      }
-
-                                                                                                                                                                                      100% {
-                                                                                                                                                                                        border-image-source: linear-gradient(360deg, red, blue, green, yellow, purple);
-                                                                                                                                                                                        filter: hue-rotate(360deg);
-                                                                                                                                                                                      }
-                                                                                                                                                                                    } */
-
     .chat-bubble {
       max-width: 75%;
       padding: .5rem .7rem;
@@ -251,7 +222,7 @@
           sessionID: sessionID,
           userID: '{{ Auth::user()->id }}',
           newSession: true, // New session
-          msisdn: '{{ Auth::user()->phone }}',
+          msisdn: '0241076475', //'{{ Auth::user()->phone }}',
           userData: '*928*1#', // First request without user input
           network: '{{ Auth::user()->network }}'
         };
@@ -273,7 +244,8 @@
         let requestData = {
           sessionID: sessionID,
           userID: '{{ Auth::user()->id }}',
-          msisdn: '{{ Auth::user()->phone }}',
+          newSession: false,
+          msisdn: '0241076475', //{{ Auth::user()->phone }},
           userData: userInput,
           network: '{{ Auth::user()->network }}'
         };
@@ -313,6 +285,7 @@
         let requestData = {
           sessionID: sessionID,
           userID: '{{ Auth::user()->id }}',
+          newSession: false,
           msisdn: '{{ Auth::user()->phone }}',
           userData: userInput,
           network: '{{ Auth::user()->network }}'
